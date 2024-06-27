@@ -38,12 +38,12 @@ npm install
 ```
 
 4. **Set up the environment variables**:
-    Create a `.env` file in the root directory with the following variables:
-    ```plaintext
-    DB_URL=mongodb://yourMongoDBUrl
-    PORT=yourPreferredPort
-    SESS_NAME=yourSessionCookieName
-    ```
+Create a `.env` file in the root directory with the following variables:
+```plaintext
+DB_URL=mongodb://yourMongoDBUrl
+PORT=yourPreferredPort
+SESS_NAME=yourSessionCookieName
+```
 
 5. **Start the server**:
 ```bash
