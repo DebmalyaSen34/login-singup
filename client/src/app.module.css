@@ -1,0 +1,10 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    display: grid;
+    place-content: center;
+    height: 100vh;
+}
