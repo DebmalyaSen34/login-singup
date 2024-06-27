@@ -3,58 +3,41 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
 import session from 'express-session';
-import userModel from './models/userData.js';
-import Text from './models/textSchema.js';
-import MongoStore from 'connect-mongo';
+import userModel from './models/userData.js'; // Importing user model
+import Text from './models/textSchema.js'; // Importing text model
+import MongoStore from 'connect-mongo'; // For storing session in MongoDB
 import cors from 'cors';
-import crypto from 'crypto';
-dotenv.config();
+import crypto from 'crypto'; // For generating secure random session secrets
+dotenv.config(); // Loading environment variables from .env file
 
-const app = e();
-app.use(e.json());
+const app = e(); //* Creating an Express application
+app.use(e.json()); //* Middleware to parse JSON bodies
 // To communicate with my frontend react application
 app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true
+    origin: 'http://localhost:5173', //* Frontend application URL
+    credentials: true //* Allowing credentials (cookies, authorization headers, etc.)
 }));
 
-const dbUrl = process.env.DB_URL;
-const port = process.env.PORT;
+const dbUrl = process.env.DB_URL; //* MongoDB connection URL
+const port = process.env.PORT; // Server port
 
-const secret = crypto.randomBytes(64).toString('hex');
+const secret = crypto.randomBytes(64).toString('hex'); // Generating a secure secret for sessions
 //* Session configuration
 app.use(session({
-    name: process.env.SESS_NAME,
-    secret: secret,
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({mongoUrl: dbUrl}),
+    name: process.env.SESS_NAME, // Name of the session cookie
+    secret: secret, //* Secret used to sign the session ID cookie
+    resave: false, //* Avoid resaving sessions that haven't changed
+    saveUninitialized: false, // Don't save uninitialized sessions
+    store: MongoStore.create({mongoUrl: dbUrl}), // Storing sessions in MongoDB
     cookie: {
         sameSite: 'strict',
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 7200000
+        httpOnly: true, //* Cookie not accessible via JavaScript
+        secure: process.env.NODE_ENV === 'production', //* Use secure cookies in production
+        maxAge: 7200000 // Cookie expiration time in milliseconds
     }
 }))
 
 mongoose.connect(dbUrl);
-
-// const redirectLogin = (req, res, next) => {
-//     console.log(req.session);
-//     if(!req.session.userId){
-//         res.redirect('http://localhost:5173/login');
-//     }else{
-//         next();
-//     }
-// }
-
-// const redirectHome = (req, res, next) => {
-//     if(!req.session.userId){
-//         res.redirect('/home');
-//     }else{
-//         next();
-//     }
-// }
 
 // Checks whether the user is logged in so
 // that appropriate pages are loaded
