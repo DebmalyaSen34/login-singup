@@ -51,7 +51,7 @@ This React application serves as the frontend interface for a user authenticatio
     npm run dev
     ```
 
-#### Usage
+## Usage
 
 Navigate through the application using the navbar or direct URLs:
 
@@ -60,6 +60,6 @@ Navigate through the application using the navbar or direct URLs:
     * `/home`- The homepage for authenticated users.
     * `/getTexts`- Access and display user-specific text data.
 
-##### Contributing
+## Contributing
 
 Contributions are welcome! For major changes, please open an issue first to discuss what you would like to change. Please ensure to update tests as appropriate.
