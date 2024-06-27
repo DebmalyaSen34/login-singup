@@ -1,65 +1,68 @@
-# React Frontend Application
+# Express Authentication Server
 
-This React application serves as the frontend interface for a user authentication system, providing a seamless user experience for registration, login, and content access. It utilizes React Router for navigation and Bootstrap for styling, ensuring a responsive and intuitive design.
+This project is an Express.js application designed to handle user authentication, session management, and data storage with MongoDB. It provides a secure backend for web applications, specifically tailored for integration with a React frontend. The server handles user registration, login, session management, and stores user-generated text data securely.
 
 ## Features
 
-- **User Registration**: A dedicated sign-up page allows new users to register.
-- **User Login**: A login page enables existing users to authenticate and access protected routes.
-- **Home Page**: The landing page for authenticated users, displaying welcome messages and user-specific content.
-- **Content Access**: Authenticated users can access and retrieve text data through a dedicated page.
-- **Responsive Design**: Utilizes Bootstrap for a responsive layout that adapts to various screen sizes.
+- **User Registration and Login**: Securely register and authenticate users using bcrypt for password hashing.
+- **Session Management**: Utilize `express-session` with `connect-mongo` for persistent session storage in MongoDB, ensuring users remain logged in across server restarts.
+- **Secure Cookies**: Implement secure, HTTP-only cookies for session management, enhancing security by preventing client-side script access to cookies.
+- **MongoDB Integration**: Use MongoDB for storing user details and session information, providing a scalable and flexible data storage solution.
+- **CORS Configuration**: Setup CORS to allow requests from the specified frontend application, facilitating seamless integration with React or other frontend frameworks.
+- **User Data Storage**: Provide endpoints for storing and retrieving user-generated text data, linking it to the authenticated user.
 
-## Getting Started
+## Prerequisites
 
-### Prerequisites
+Before you begin, ensure you have met the following requirements:
+- Node.js installed on your machine.
+- MongoDB setup either locally or a cloud instance.
+- An environment file (`.env`) configured with your database URL, server port, and session cookie name.
 
-- Node.js and npm (Node Package Manager) installed on your machine.
-- A backend server running for user authentication and data retrieval.
+## Installation
 
-### Installation
+Follow these steps to get your development environment set up:
 
-1. **Clone the Repository**
+1. **Clone the repository**:
+```bash
+git clone https://github.com/DebmalyaSen1519/express-authentication-server.git
+```
 
-   Clone the repository to your local machine using the following command:
+2. **Navigate to the project directory**:
+```bash
+cd express-authentication-server
+```
 
-   ```bash
-   git clone https://github.com/yourgithubusername/yourrepositoryname.git
-   ```
+3. **Install dependencies**:
+```bash
+npm install
+```
 
-2. **Navigate to the Project Directory**:
-    
-    Change into the project directory:
-
-    ```bash
-    cd yourrepositoryname
+4. **Set up the environment variables**:
+    Create a `.env` file in the root directory with the following variables:
+    ```plaintext
+    DB_URL=mongodb://yourMongoDBUrl
+    PORT=yourPreferredPort
+    SESS_NAME=yourSessionCookieName
     ```
 
-3. **Install Dependencies**:
-    
-    Install the necessary npm packages:
+5. **Start the server**:
+```bash
+npm start
+```
 
-    ```bash
-    npm install
-    ```
+You should now be running and listening for requests on the specified port
 
-4. **Start the Development Server**:
+## Usage
 
-    Launch the application in development mode:
+The server provides several endpoints for managing users and their data:
 
-    ```bash
-    npm run dev
-    ```
+* `POST /register`: Register a new user
+* `POST /login`: Authenticate a user and create a session.
+* `POST /logout`: Log out a user and destroy their session.
+* `GET /auth/status`: Check if a user is currently authenticated.
+* `POST /userText`: Store text data for the authenticated user.
+* `GET /texts`: Retrieve text data associated with the authenticated user.
 
-#### Usage
+## Contributing
 
-Navigate through the application using the navbar or direct URLs:
-
-    * `/register`- Sign up for a new account.
-    * `/login`- Log in with an existing account.
-    * `/home`- The homepage for authenticated users.
-    * `/getTexts`- Access and display user-specific text data.
-
-##### Contributing
-
-Contributions are welcome! For major changes, please open an issue first to discuss what you would like to change. Please ensure to update tests as appropriate.
+Contributions to this project are welcome! To contribute, please fork the repository, create a new branch for your feature or fix, and submit a pull request.
